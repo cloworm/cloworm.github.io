@@ -31,6 +31,12 @@ module.exports = {
         },
         '.filter-color': {
           filter: 'grayscale(0)'
+        },
+        '.canvas-resize': {
+          'canvas[resize]': {
+            width: '100%',
+            height: '100%'
+          }
         }
       }
 
