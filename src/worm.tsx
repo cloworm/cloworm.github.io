@@ -11,11 +11,12 @@ const Worm = (): ReactElement => {
   const length = 35
 
   useEffect(() => {
-    if (!Paper || !Paper.view) return
-    return Paper.view.remove()
+    if (!Paper?.view) return
+    return () => { Paper.view.remove() }
   }, [])
 
   const draw = useCallback(() => {
+    // TO DO dont destructure
     const { current } = pathRef
     if (!current) return
 
@@ -50,7 +51,7 @@ const Worm = (): ReactElement => {
       if (!pathRef.current) return
       pathRef.current.fullySelected = false
     }
-  }, [pathRef])
+  }, [])
 
   const setCanvasRef = useCallback(node => {
     if (node !== null) {
@@ -68,7 +69,7 @@ const Worm = (): ReactElement => {
 
   return (
     <div className="min-h-screen">
-      <canvas className="w-full min-h-screen" ref={setCanvasRef} id="canvas" data-paper-resize />
+      <canvas className="w-full h-screen" ref={setCanvasRef} id="canvas" />
     </div>
   )
 }
