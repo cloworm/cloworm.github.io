@@ -11,8 +11,8 @@ interface Props {
 
 const Card = ({ project, flipped }: Props): ReactElement => {
   return (
-    <div className="relative rounded-xl group hover:border-transparent hover:shadow-lg shadow transition-all text-left grid grid-cols-2 mb-10 transform hover:scale-105">
-      <div className={`${flipped ? 'order-1 rounded-r-xl' : 'rounded-l-xl'} px-8 py-8 bg-white`}>
+    <div className="relative rounded-xl group hover:border-transparent hover:shadow-xl shadow transition-all text-left grid lg:grid-cols-2 mb-10 transform hover:scale-105">
+      <div className={`${flipped ? 'lg:order-1 lg:rounded-r-xl' : 'lg:rounded-l-xl'} px-8 py-8 bg-white`}>
         <p className="text-sm font-semibold text-theme_pink">
           {project.year}
         </p>
@@ -38,7 +38,7 @@ const Card = ({ project, flipped }: Props): ReactElement => {
 
       </div>
 
-      <div style={{ backgroundImage: project.bgImage }} className={`bg-cover ${project.bgPosition ? project.bgPosition : 'bg-left-top'} bg-no-repeat ${flipped ? 'rounded-l-xl' : 'rounded-r-xl'} flex justify-center border-4 border-white`}>
+      <div style={{ backgroundImage: project.bgImage }} className={`bg-cover ${project.bgPosition ? project.bgPosition : 'bg-left-top'} bg-no-repeat ${flipped ? 'rounded-l-xl' : 'rounded-r-xl'} flex justify-center border-4 border-white h-40`}>
       </div>
     </div>
   )
