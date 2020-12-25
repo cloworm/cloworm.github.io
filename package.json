@@ -27,7 +27,7 @@
     "start": "craco start",
     "build": "craco build",
     "predeploy": "npm run build",
-    "deploy": "gh-pages -d build",
+    "deploy": "gh-pages -b master -d build",
     "test": "craco test",
     "eject": "react-scripts eject",
     "lint": "eslint \"**/*.{ts,tsx}\" --quiet",
@@ -52,6 +52,7 @@
     ]
   },
   "devDependencies": {
+    "@types/paper": "^0.12.3",
     "@typescript-eslint/eslint-plugin": "^4.11.0",
     "@typescript-eslint/parser": "^4.11.0",
     "eslint": "^7.16.0",
