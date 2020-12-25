@@ -93,7 +93,7 @@ const Projects = (): ReactElement => {
     },
   ])
   return (
-    <div className="bg-gradient-to-b from-theme_lilac to-theme_periwinkle flex justify-center">
+    <div id="projects" className="bg-gradient-to-b from-theme_lilac to-theme_periwinkle flex justify-center">
       <div className="px-4 md:px-10 lg:px-20 xl:w-1/2 py-20">
         <h2 className="text-3xl font-extralight tracking-widest pb-12 text-center">
           PROJECT SHOWCASE
