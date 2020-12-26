@@ -1,7 +1,8 @@
-import React, { ReactElement } from 'react'
+import React, { ReactElement, useCallback, useMemo } from 'react'
 
 import Chip from './chip'
 import ButtonLink from './button-link'
+import useExpandedCard from './hooks/useExpandedCard'
 
 interface Props {
   year: number
@@ -12,7 +13,21 @@ interface Props {
   bgImage: string
   bgPosition?: string
   flipped: boolean
-  tags: string[]
+  tags: string[],
+}
+
+const Tags = ({ tags }: { tags: string[] }): ReactElement => {
+  return <>
+    {
+      tags.map((tag, idx) => {
+        return (
+          <div key={idx} className="inline-block">
+            <Chip>{tag}</Chip>
+          </div>
+        )
+      })
+    }
+  </>
 }
 
 const Card = ({
@@ -26,8 +41,40 @@ const Card = ({
   flipped,
   tags,
 }: Props): ReactElement => {
+  const [expandedCard, setExpandedCard] = useExpandedCard()
+  const uriFriendlyName = useMemo<string>(() => encodeURIComponent(name), [name])
+  const isExpanded = useMemo<boolean>(() => expandedCard === uriFriendlyName, [expandedCard, uriFriendlyName])
+  const handleClick = useCallback(() => {
+    setExpandedCard((prevExpandedCard) => {
+      const nextExpandedCard = prevExpandedCard === uriFriendlyName ? null : uriFriendlyName
+      if (nextExpandedCard) {
+        // TODO: Smooth scroll
+        window.location.hash = uriFriendlyName
+      }
+      return nextExpandedCard
+    })
+  }, [uriFriendlyName, setExpandedCard])
+
   return (
-    <div className="relative rounded-xl group hover:border-transparent hover:shadow-xl shadow transition-all text-left grid lg:grid-cols-2 mb-10 transform hover:scale-105">
+    <div
+      id={uriFriendlyName}
+      className={`
+        grid
+        relative
+        rounded-xl
+        group
+        shadow
+        transition-all
+        text-left
+        lg:grid-cols-2
+        mb-10
+        transform
+        cursor-pointer
+        ${isExpanded ? '' : 'hover:scale-105 hover:border-transparent hover:shadow-xl' }
+        ${isExpanded ? 'scale-110 shadow-xl' : '' }
+      `}
+      onClick={handleClick}
+    >
       <div className={`${flipped ? 'order-first lg:order-1 rounded-t-xl lg:rounded-t-none lg:rounded-r-xl' : 'order-first rounded-t-xl lg:rounded-t-none lg:rounded-l-xl'} px-6 py-6 lg:px-8 lg:py-8 bg-white`}>
         <p className="text-sm font-semibold text-theme_pink">
           {year}
@@ -46,27 +93,25 @@ const Card = ({
           {description}
         </p>
         <div className="hidden lg:block">
-          {tags.map((tag, idx) => {
-            return (
-              <div key={`${name}-div${idx}`} className="inline-block">
-                <Chip key={`${name}-${idx}`}>{tag}</Chip>
-              </div>
-            )
-          })}
+          <Tags tags={tags} />
         </div>
 
       </div>
 
-      <div style={{ backgroundImage: bgImage }} className={`bg-cover ${bgPosition ? bgPosition : 'bg-left-top'} bg-no-repeat ${flipped ? 'lg:rounded-l-xl' : 'lg:rounded-r-xl'} flex justify-center border-l-4 border-r-4 lg:border-4 border-white h-40 lg:h-auto`}>
-      </div>
+      <div
+        style={{ backgroundImage: bgImage }}
+        className={`
+          bg-cover
+          ${bgPosition ? bgPosition : 'bg-left-top'}
+          bg-no-repeat
+          ${flipped ? 'lg:rounded-l-xl' : 'lg:rounded-r-xl'}
+          flex justify-center
+          border-l-4 border-r-4 lg:border-4 border-white
+          h-40 lg:h-auto
+        `}
+      />
       <div className="lg:hidden bg-white rounded-b-xl px-6 py-6">
-        {tags.map((tag, idx) => {
-          return (
-            <div key={`${name}-div${idx}`} className="inline-block">
-              <Chip key={`${name}-${idx}`}>{tag}</Chip>
-            </div>
-          )
-        })}
+        <Tags tags={tags} />
       </div>
     </div>
   )
