@@ -1,25 +1,27 @@
-import React, { ReactElement, useCallback } from 'react'
+import { FunctionComponent, useCallback } from 'react'
 
 interface Props {
   children: string
   url: string
 }
 
-const ButtonLink = ({ children, url }: Props): ReactElement => {
+const ButtonLink: FunctionComponent<Props> = ({ children, url }) => {
   const handleClick = useCallback((event) => {
     event.stopPropagation()
   }, [])
 
   return (
-    <a
-      onClick={handleClick}
-      href={url}
-      target="_blank"
-      rel="noopener noreferrer"
-      className="border border-gray-500 hover:bg-theme_pink rounded font-medium text-sm italic text-gray-900 align-bottom px-2 py-0.5"
-    >
-      {children}
-    </a>
+    <div>
+      <a
+        onClick={handleClick}
+        href={url}
+        target="_blank"
+        rel="noopener noreferrer"
+        className="inline-block hover:bg-theme_frenchPink bg-gradient-to-tr from-theme_frenchPink to-theme_carnationPink rounded-full font-semiBold text-white px-6 py-2"
+      >
+        {children}
+      </a>
+    </div>
   )
 }
 

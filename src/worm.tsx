@@ -1,12 +1,19 @@
-import React, { ReactElement, useCallback, useEffect, useRef } from 'react'
-import Paper, { Path, Point, Color } from 'paper'
+import React, { FunctionComponent, useCallback, useEffect, useRef } from 'react'
+import Paper, { Path, Point, Color, Gradient, GradientStop } from 'paper'
 
 import useIsMounted from './hooks/useIsMounted'
-import getRandomColor from './lib/getRandomColor'
 
-const Worm = (): ReactElement => {
+interface Props {
+  light: string
+  dark: string
+}
+
+const Worm: FunctionComponent<Props> = ({ light = '#F8E5EF', dark = '#FF6194' }) => {
   const isMounted = useIsMounted()
-  const pathRef = useRef<InstanceType<typeof Path>>()
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const pathRef = useRef<any>()
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const canvasRef = useRef<any>()
   const points = 25
   const length = 35
 
@@ -15,20 +22,35 @@ const Worm = (): ReactElement => {
     return () => { Paper.view.remove() }
   }, [])
 
+  useEffect(() => {
+    if (!pathRef?.current && !canvasRef?.current) return
+
+    const gradient = new Gradient()
+    gradient.stops = [
+      new GradientStop(new Color(light)),
+      new GradientStop(new Color(dark))
+    ]
+
+    pathRef.current.strokeColor = {
+      gradient,
+      origin: [0, canvasRef.current.width],
+      destination: [0, 0]
+    }
+
+  }, [light, dark])
+
   const draw = useCallback(() => {
-    // TO DO dont destructure
-    const { current } = pathRef
-    if (!current) return
+    if (!pathRef?.current) return
 
     const start = Paper.view.center.divide(new Point(10, 1))
 
     for (let i = 0; i < points; i++) {
-      current.add(start.add(new Point(i * length, 0)))
+      pathRef.current.add(start.add(new Point(i * length, 0)))
     }
 
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     Paper.view.onMouseMove = (event: any) => {
-      if (!pathRef.current) return
+      if (!pathRef?.current) return
 
       pathRef.current.firstSegment.point = event.point
       for (let i = 0; i < points - 1; i++) {
@@ -40,24 +62,23 @@ const Worm = (): ReactElement => {
       }
       pathRef.current.smooth({ type: 'continuous' })
     }
-
-    Paper.view.onMouseDown = () => {
-      if (!pathRef.current) return
-      pathRef.current.fullySelected = true
-      pathRef.current.strokeColor = new Color(getRandomColor())
-    }
-
-    Paper.view.onMouseUp = () => {
-      if (!pathRef.current) return
-      pathRef.current.fullySelected = false
-    }
   }, [])
 
   const setCanvasRef = useCallback(node => {
     if (node !== null) {
+      canvasRef.current = node
       Paper.setup(node)
       pathRef.current = new Path({
-        strokeColor: getRandomColor(),
+        strokeColor: {
+          gradient: {
+            stops: [
+              '#F8E5EF',
+              '#FF6194',
+            ]
+          },
+          origin: [0, node.width],
+          destination: [0, 0]
+        },
         strokeWidth: 20,
         strokeCap: 'round'
       })
@@ -68,7 +89,7 @@ const Worm = (): ReactElement => {
   if (!isMounted) return <div></div>
 
   return (
-    <div className="h-screen">
+    <div className="h-screen bg-gradient-to-b from-theme_oceanBlue to-theme_mediumPurple">
       <canvas className="h-screen w-full canvas-resize" ref={setCanvasRef} id="canvas" data-paper-resize="true" />
     </div>
   )

@@ -1,15 +1,17 @@
-import React, { ReactElement } from 'react'
+import React, { FunctionComponent } from 'react'
 
 import Card from './card'
 
-const Projects = (): ReactElement => {
+const Projects: FunctionComponent = () => {
   let flipped = true
+
   return (
-    <div id="projects" className="bg-gradient-to-b from-theme_lilac to-theme_periwinkle flex justify-center">
-      <div className="px-4 md:px-10 lg:px-20 xl:w-3/5 2xl:w-1/2 py-20">
+    <div id="projects" className="flex justify-center">
+      <div className="relative px-6 md:px-10 lg:px-20 xl:w-3/5 2xl:w-1/2 py-20">
         <h2 className="text-3xl font-extralight tracking-widest pb-12 text-center">
           PROJECT SHOWCASE
         </h2>
+
         <Card
           year={2020}
           name="Countdown"
