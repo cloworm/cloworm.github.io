@@ -24,18 +24,9 @@ const Header: FunctionComponent = () => {
         <Worm light={colors.light} dark={colors.dark} />
       </div>
 
-      <div className="flex flex-col bg-theme_ghostWhite absolute bottom-0 left-0 right-0 flex flex-row items-center justify-center z-10 pt-14 clip-ellipse">
-        <p className="font-light text-base tracking-wider">PROJECTS</p>
-        <div className="animate-bounce">
-          <a href="#projects">
-            <svg xmlns="http://www.w3.org/2000/svg" height="40" viewBox="0 0 24 24" width="40"><path d="M0 0h24v24H0V0z" fill="none"/><path d="M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6-6-6 1.41-1.41z"/></svg>
-          </a>
-        </div>
-      </div>
-
       <header className="absolute top-0 left-0 right-0 lg:px-40 min-h-screen flex flex-col justify-center items-center text-center">
         <div className="relative">
-          <div className="absolute -top-72 lg:top-16 -right-3 lg:-right-10" onMouseEnter={() => handleShapeHover({ light: '#E9E7FD', dark: '#AC70EA' })}>
+          <div className="absolute -top-72 lg:top-16 -right-3 lg:-right-10" onMouseEnter={() => handleShapeHover({ light: '#E9E7FD', dark: '#AC70EA' })} >
             <Shape />
           </div>
           <div className="absolute -top-60 lg:top-24 right-12" onMouseEnter={() => handleShapeHover({ light: '#78EED0', dark: '#59AAB9' })}>
@@ -63,6 +54,17 @@ const Header: FunctionComponent = () => {
           </div>
         </div>
       </header>
+
+      <div className="flex flex-col bg-theme_ghostWhite absolute bottom-0 left-0 right-0 flex flex-row items-center justify-center z-10 pt-14 clip-ellipse">
+        <a href="#projects">
+          <p className="font-light text-base tracking-wider">PROJECTS</p>
+        </a>
+        <div className="animate-bounce">
+          <a href="#projects">
+            <svg xmlns="http://www.w3.org/2000/svg" height="40" viewBox="0 0 24 24" width="40"><path d="M0 0h24v24H0V0z" fill="none"/><path d="M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6-6-6 1.41-1.41z"/></svg>
+          </a>
+        </div>
+      </div>
 
     </div>
   )

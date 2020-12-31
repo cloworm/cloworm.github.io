@@ -58,7 +58,8 @@
     "@typescript-eslint/parser": "^4.11.0",
     "eslint": "^7.16.0",
     "eslint-plugin-react": "^7.21.5",
-    "eslint-plugin-react-hooks": "^4.2.0"
+    "eslint-plugin-react-hooks": "^4.2.0",
+    "postcss-100vh-fix": "^0.1.1"
   },
   "homepage": "https://cloworm.github.io"
 }
