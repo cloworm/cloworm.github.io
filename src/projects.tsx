@@ -52,6 +52,24 @@ const Projects: FunctionComponent = () => {
         />
         <Card
           year={2020}
+          name="Pomodoro"
+          flipped={flipped = !flipped}
+          description="Pomodoro Timer with customizable theming"
+          repo="https://github.com/cloworm/pomodoro"
+          link="https://cloworm-pomodoro.vercel.app/"
+          bgPosition="bg-center"
+          bgImage="url('https://user-images.githubusercontent.com/5566310/103488386-0068a780-4dda-11eb-8f45-aa23206a7ae2.png')"
+          tags={[
+            'TypeScript',
+            'React',
+            'Next.js',
+            'Vercel',
+            'Tailwind CSS',
+            'Responsive',
+          ]}
+        />
+        <Card
+          year={2020}
           name="Shortly"
           flipped={flipped = !flipped}
           description="Url shortener built on top of shrtco.de"
@@ -90,7 +108,7 @@ const Projects: FunctionComponent = () => {
         />
         <Card
           year={2016}
-          name="RegEx Playground"
+          name="RegEx"
           flipped={flipped = !flipped}
           description="An update-as-you-type regular expression pattern-matcher with the ability to match multiple texts at once"
           repo="https://github.com/cloworm/regex-playground"

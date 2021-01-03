@@ -90,7 +90,7 @@ const Worm: FunctionComponent<Props> = ({ light = '#F8E5EF', dark = '#FF6194' })
 
   return (
     <div className="h-screen bg-gradient-to-b from-theme_oceanBlue to-theme_mediumPurple">
-      <canvas className="h-screen w-full canvas-resize hidden sm-block" ref={setCanvasRef} id="canvas" data-paper-resize="true" />
+      <canvas className="h-screen w-full canvas-resize hidden sm:block" ref={setCanvasRef} id="canvas" data-paper-resize="true" />
     </div>
   )
 }
